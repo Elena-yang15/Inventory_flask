@@ -36,7 +36,31 @@ python run.py
 ## Running the App
 - The Overview Page shows the lists of available products and locations.
 ![screenshot for project](pictures/list.png)
+![screenshot for project](pictures/available.png)
 
+- Add new product
+![screenshot for project](pictures/add.png)
+
+- Edit product
+![screenshot for project](pictures/edit.png)
+
+- Delete product
+![screenshot for project](pictures/delete.png)
+
+- View products and locations
+![screenshot for project](pictures/list2.png)
+![screenshot for project](pictures/loc.png)
+
+- Create new shipment, select the product and locations from the database
+![screenshot for project](pictures/addship.png)
+![screenshot for project](pictures/shipshow.png)
+
+
+- Error: Same From location and To location
+![screenshot for project](pictures/shiperr2.png)
+
+- Error: Insufficient products for the shipment
+![screenshot for project](pictures/shiperr.png)
 
 
 
