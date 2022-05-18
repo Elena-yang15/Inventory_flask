@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row" style="margin-top:20px; margin-left:20px">
+    <div class="col-7">
+       <h2>Products Table</h2>
+       <h4>View available products on the Inventory Tracking App</h4>
+       <br>
+     
+                        {% if products|length < 1 %}
+                        <p>There are no available products, please add one first.</p>
+                        {% else %}
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                <tr>
+                                    <td>{{ product.product_id }}</td>
+                                    <td>{{ product.product_name }}</td>
+                                    <td>{{ product.product_num }}</td>
+                                    <td>{{ product.date_created.date() }}</td>
+                                    <td>
+                                        <a href="{{ url_for('product_page') }}">Add, Edit, Delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                </div>
+            
+                <div class="col-5">
+                    <h2>Locations Table</h2>
+                    <h4>View available locations</h4>
+                    <br>
+                  
+                                     {% if locations|length < 1 %}
+                                     <p>There are no available locations, please add one first.</p>
+                                     {% else %}
+                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                         <thead>
+                                             <tr>
+                                                 <th scope="col">ID</th>
+                                                 <th scope="col">Location Name</th>
+                                                 <th scope="col">Options</th>
+                                             </tr>
+                                         </thead>
+                                         <tbody>
+                                             {% for loc in locations %}
+                                             <tr>
+                                                 <td>{{ loc.location_id }}</td>
+                                                 <td>{{ loc.location_name }}</td>
+                                                 <td>
+                                                    <a href="{{ url_for('location_page') }}">Add, Edit, Delete</a>
+                                                 </td>
+                                             </tr>
+                                             {% endfor %}
+                                         </tbody>
+                                     </table>
+                                     {% endif %}
+                             </div>
+    </div>
+
+{% endblock %}

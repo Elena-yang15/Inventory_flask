@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}  
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+       {%if messages %}
+            {%for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                 <h4 style="text-align:center;">{{ message }}</h4>
+              </div>
+            {%endfor%}
+      {%endif %}
+    {%endwith%}
+</div>
+<br>      
+<h2>  View Products</h2>
+<br>
+            <div class="card-body">
+                <div class="card mb-4">
+                    <div class="card-header">Add New Product</div>
+                    <div class="card-body">
+                        <form action="{{ url_for('product_page') }}" method="post" id="product_form">
+                            <label for="product_name" class="col-form-label">Product Name</label>
+                            <input type="text" name="product_name" id="product_name">
+                            <label for="product_num" class="col-form-label">Quantity</label>
+                            <input type="text" name="product_num" id="product_num">
+                            <input id="submit" type = "submit" value="Add Product" class="btn btn-primary">
+                        </form>
+                    </div>
+                </div>
+                {% if products|length < 1 %}
+                        <p>There are no available products, please add one first.</p>
+                        {% else %}
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                <tr>
+                                    <td>{{ product.product_id }}</td>
+                                    <td>{{ product.product_name }}</td>
+                                    <td>{{ product.product_num }}</td>
+                                    <td>{{ product.date_created.date() }}</td>
+                                    <td>
+                                        <!-- <a href="/update-product/{{ product.product_id }}">Edit</a>  &nbsp; -->
+                                        <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#edit{{product.product_id}}" > Edit </button>
+                                        <button class="btn btn-outline btn-danger" data-toggle="modal" data-target="#delete{{product.product_id}}" > Delete </button>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                {% include 'includes/edit_product_modal.html' %}
+                                {% include 'includes/delete_product_modal.html' %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                
+                
+            </div>
+                </div>
+            </div>
+       
+
+
+{% endblock %}

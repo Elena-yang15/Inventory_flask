@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+       {%if messages %}
+            {%for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                 <h4 style="text-align:center;">{{ message }}</h4>
+              </div>
+            {%endfor%}
+      {%endif %}
+    {%endwith%}
+</div>
+<br>      
+<h2>  View Shipments</h2>
+<br>
+    
+<div class="card-body">
+        
+                <div class="card mb-4">
+                    <div class="card-header">Add New Shipments</div>
+                    <div class="card-body">
+                        <form action="{{ url_for('shipment_page') }}" method="POST" id="shipments_from">
+                            <div class="form-group">
+                                        <label for="productName">Product Name</label>
+                                        <select id="productName" name="productName" class="form-control">
+                                            <option selected value=""></option>
+                                            {% if products|length > 0 %}
+                                            {% for product in products%}
+                                            <option value="{{product.product_name}}">{{product.product_name}}</option>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </select>
+                                        <label for="shipNum">Shipment Quantity</label>
+                                        <input class="form-control" name="shipNum" id="shipNum" type="number" />
+                                    <label for="fromLocation">From</label>
+                                    <select id="fromLocation" class="form-control" name="fromLocation">
+                                        <option selected value=""></option>
+                                        {% if locations|length > 0 %}
+                                        {% for location in locations%}
+                                        <option value="{{location.location_name}}">{{location.location_name}}</option>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                    <label for="toLocation">TO</label>
+                                    <select id="toLocation" name="toLocation" class="form-control">
+                                        <option selected value=""></option>
+                                        {% if locations|length > 0 %}
+                                        {% for location in locations%}
+                                        <option value="{{location.location_name}}">{{location.location_name}}</option>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </select>
+                            <div class="form-group mt-4 mb-0">
+                                <input type="submit" class="btn btn-primary btn-block" value="Add Shipment" class="btn btn-primary">
+                            </div>
+                        </div>
+                        </form>
+                    
+                    </div>
+            </div>
+                
+                        {% if shipments|length < 1 %}
+                        <p>There are no available products, please add one first.</p>
+                        {% else %}
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Product Name</th>
+                                    <th>Shipment Quantity</th>
+                                    <th>From Location</th>
+                                    <th>To Location</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for shipment in shipments%}
+                                <tr>
+                                    <td>{{ shipment.ship_id }}</td>
+                                    <td>{{ shipment.product_name }}</td>
+                                    <td>{{ shipment.ship_num }}</td>
+                                    <td>{{ shipment.from_loc }}</td>
+                                    <td>{{ shipment.to_loc }}</td>
+                                    <td>{{ shipment.date }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>  
+        </div>
+    
+
+{% endblock %}
