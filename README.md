@@ -1,6 +1,5 @@
 # Flask Inventory Tracking Management
 
-This project is for [Shopify backend intern 2022 Challenge](https://docs.google.com/document/d/1PoxpoaJymXmFB3iCMhGL6js-ibht7GO_DkCF2elCySU/edit)
 
 ## Technologies
 - Python
